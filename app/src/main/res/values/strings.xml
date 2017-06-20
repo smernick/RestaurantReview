@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">RestaurantReview</string>
     <string name="title_activity_restaurant">Map</string>
+
+
+    <string name="yelp_consumer_key" templateMergeStrategy="preserve" translatable="false">HZbjl9zW3keKcqhRf5iVeA</string>
+    <string name="yelp_consumer_secret_key" templateMergeStrategy="preserve" translatable="false">TuzVJcJvnnW5Ao4iIZHthQpEUnY</string>
+    <string name="yelp_token" templateMergeStrategy="preserve" translatable="false">B8kTXGDvid7dlKb2jAe7AIXtdEfCDiYv</string>
+    <string name="yelp_token_secret" templateMergeStrategy="preserve" translatable="false">G1PnpnGCvvVxno0tDLaLMhWeMAc</string>
+
 </resources>
