@@ -1,5 +1,6 @@
 package com.nucleuslife.restaurantreview;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -12,11 +13,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.nucleuslife.restaurantreview.fragments.RestaurantList;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
+import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +32,7 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
 {
     private GoogleMap mMap;
     private Button searchResaurantButton;
+    private ArrayList<Business> businessesArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -128,6 +133,8 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                 SearchResponse searchResponse = response.body();
                 Log.i("yelpresponse", searchResponse.toString());
+                RestaurantActivity.this.parseRestaurantData(searchResponse);
+
                 // Update UI text with the searchResponse.
             }
             @Override
@@ -137,8 +144,48 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
         };
 
 
+        Call<SearchResponse> call = yelpAPI.search(coordinateOptions, params);
+        call.enqueue(callback);
+//        try {
+//            Response<SearchResponse> response = call.execute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
     }
 
+
+    private void parseRestaurantData(SearchResponse searchResponse)
+    {
+        this.businessesArrayList = new ArrayList<>();
+
+        for (int i = 0; i < searchResponse.businesses().size() ; i++ )  {
+            Business business = searchResponse.businesses().get(i);
+            this.businessesArrayList.add(business);
+        }
+
+
+        this.showRestaurantList();
+
+    }
+
+    public ArrayList<Business> getBusinessesArrayList()
+    {
+        return businessesArrayList;
+    }
+
+    private void showRestaurantList()
+    {
+        RestaurantList fragment = new RestaurantList();
+        Log.i("recyclersam", "showfragment");
+
+        FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+        transaction.replace(R.id.fragment_layout, fragment);
+        transaction.addToBackStack(fragment.getClass().getSimpleName());
+        transaction.commit();
+    }
 
 
 }

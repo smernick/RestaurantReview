@@ -40,6 +40,7 @@ dependencies {
 
 //    apis
     compile 'com.yelp.clientlib:yelp-android:3.0.0'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
 
 
 
