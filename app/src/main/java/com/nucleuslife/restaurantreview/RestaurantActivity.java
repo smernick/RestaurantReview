@@ -1,6 +1,7 @@
 package com.nucleuslife.restaurantreview;
 
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.nucleuslife.restaurantreview.fragments.RestaurantList;
 import com.yelp.clientlib.connection.YelpAPI;
@@ -24,11 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener
+public class RestaurantActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener
 {
     private GoogleMap mMap;
     private Button searchResaurantButton;
@@ -69,7 +72,8 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
         LatLng sydney = new LatLng(40.7081, -73.9571);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker IN brooklyn"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.setOnMarkerClickListener(this);
     }
 
     @Override
@@ -163,11 +167,31 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
         for (int i = 0; i < searchResponse.businesses().size() ; i++ )  {
             Business business = searchResponse.businesses().get(i);
             this.businessesArrayList.add(business);
+            this.addMarkers(business);
         }
 
 
-        this.showRestaurantList();
+//        this.showRestaurantList();
 
+    }
+
+    private void addMarkers(Business business)
+    {
+        Double latitude = business.location().coordinate().latitude();
+        Double longitude = business.location().coordinate().longitude();
+        String restaurantTitle = business.name();
+        String restaurantSnippet = business.snippetText();
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title(restaurantTitle)
+                .snippet(restaurantSnippet)
+                ;
+
+
+        Marker marker = mMap.addMarker(markerOptions);
+        marker.setTag(business);
     }
 
     public ArrayList<Business> getBusinessesArrayList()
@@ -187,5 +211,36 @@ public class RestaurantActivity extends FragmentActivity implements OnMapReadyCa
         transaction.commit();
     }
 
+    private void getCitations(Business business)
+    {
+        if (business.phone() != null) {
+            Log.i("markersam", "business: " + business.phone());
+            String phoneString = business.phone();
+//            int phoneInt = Integer.parseInt(phoneString);
 
+            // should be a singleton
+            OkHttpClient client = new OkHttpClient();
+
+
+            String uri = Uri.parse("https://data.cityofnewyork.us/resource/9w7m-hzhe.json?")
+                    .buildUpon()
+                    .appendQueryParameter("phone", phoneString)
+                    .build().toString();
+            Log.i("markersam", "url: " + uri);
+
+
+        }
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker)
+    {
+        Business business = (Business) marker.getTag();
+        if (business != null) {
+            this.getCitations(business);
+        }
+
+        return false;
+    }
 }
