@@ -1,25 +1,21 @@
 package com.nucleuslife.restaurantreview.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.nucleuslife.restaurantreview.Adapters.BusinessAdapter;
+import com.nucleuslife.restaurantreview.Adapters.CitationAdapter;
 import com.nucleuslife.restaurantreview.R;
-import com.nucleuslife.restaurantreview.RestaurantActivity;
-import com.yelp.clientlib.entities.Business;
+import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
-import java.util.ArrayList;
-
-public class RestaurantList extends Fragment
+public class RestaurantList extends AbstractCustomFragment implements View.OnClickListener
 {
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -28,6 +24,9 @@ public class RestaurantList extends Fragment
         View view = inflater.inflate(R.layout.restaurant_list_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_adapter);
 
+        Button button = (Button) view.findViewById(R.id.back_button);
+        button.setOnClickListener(this);
+
         this.init();
 
         return view;
@@ -35,15 +34,19 @@ public class RestaurantList extends Fragment
 
     private void init()
     {
-        Log.i("recyclersam", "Restaurantlist init");
+        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable("business");
 
-        ArrayList<Business> businesses = ((RestaurantActivity) this.getActivity()).getBusinessesArrayList();
-        BusinessAdapter businessAdapter = new BusinessAdapter(businesses);
-        this.recyclerView.setAdapter(businessAdapter);
+        CitationAdapter citationAdapter = new CitationAdapter(customBusiness);
+        this.recyclerView.setAdapter(citationAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(this.getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         this.recyclerView.setLayoutManager(llm);
     }
 
+    @Override
+    public void onClick(View v)
+    {
+        this.goBack();
+    }
 }
