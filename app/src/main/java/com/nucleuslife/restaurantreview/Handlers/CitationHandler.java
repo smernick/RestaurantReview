@@ -45,7 +45,7 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
         }
     }
 
-    private void showCitationListFragment(CustomBusiness customBusiness)
+    public void showCitationListFragment(CustomBusiness customBusiness)
     {
         CitationListFragment fragment = new CitationListFragment();
         Bundle bundle = new Bundle();
@@ -59,7 +59,8 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
     public void onCitationSuccess(CustomBusiness customBusiness)
     {
         Log.i("citationsam", "size: " + customBusiness.getCitations().size());
-        this.showCitationListFragment(customBusiness);
+        ((RestaurantActivity)context).getRestaurantHandler().addMarkers(customBusiness);
+//        this.showCitationListFragment(customBusiness);
     }
 
     @Override

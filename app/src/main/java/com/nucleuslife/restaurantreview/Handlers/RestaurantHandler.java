@@ -1,11 +1,13 @@
 package com.nucleuslife.restaurantreview.Handlers;
 
-import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.nucleuslife.restaurantreview.Adapters.BusinessAdapter;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.RestaurantActivity;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
@@ -15,6 +17,7 @@ import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.CoordinateOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,11 +31,15 @@ public class RestaurantHandler
     private static String YELP_API_LIMIT_PARAM = "limit";
     private static String YELP_API_LANG_PARAM = "lang";
 
-    private Context context;
+    private ArrayList<CustomBusiness> businessArrayList;
 
-    public RestaurantHandler(Context context)
+
+    private RestaurantActivity context;
+
+    public RestaurantHandler(RestaurantActivity context)
     {
         this.context = context;
+        this.businessArrayList = new ArrayList<>();
     }
 
     public void makeCall()
@@ -58,9 +65,9 @@ public class RestaurantHandler
     private Map<String, String> getParams()
     {
         Map<String, String> params = new HashMap<>();
-        params.put("term", "food");
-        params.put("limit", "10");
-        params.put("lang", "en");
+        params.put(YELP_API_TERM_PARAM, "food");
+        params.put(YELP_API_LIMIT_PARAM, "10");
+        params.put(YELP_API_LANG_PARAM, "en");
 
         return params;
     }
@@ -70,13 +77,13 @@ public class RestaurantHandler
         @Override
         public Double latitude()
         {
-            return ((RestaurantActivity)context).getGoogleMapsHandler().getMap().getCameraPosition().target.latitude;
+            return context.getGoogleMapsHandler().getMap().getCameraPosition().target.latitude;
         }
 
         @Override
         public Double longitude()
         {
-            return ((RestaurantActivity)context).getGoogleMapsHandler().getMap().getCameraPosition().target.longitude;
+            return context.getGoogleMapsHandler().getMap().getCameraPosition().target.longitude;
         }
 
         @Override
@@ -115,28 +122,46 @@ public class RestaurantHandler
 
     private void parseRestaurantData(SearchResponse searchResponse)
     {
+        this.businessArrayList.clear();
+
         for (int i = 0; i < searchResponse.businesses().size() ; i++ )  {
             Business business = searchResponse.businesses().get(i);
             CustomBusiness customBusiness = new CustomBusiness(business);
-            this.addMarkers(customBusiness);
+            this.context.getCitationHandler().getCitations(customBusiness);
+            this.businessArrayList.add(customBusiness);
         }
     }
 
-    private void addMarkers(CustomBusiness business)
+    public void addMarkers(CustomBusiness business)
     {
         Double latitude = business.getBusinessInfo().location().coordinate().latitude();
         Double longitude = business.getBusinessInfo().location().coordinate().longitude();
         String restaurantTitle = business.getBusinessInfo().name();
         String restaurantSnippet = business.getBusinessInfo().distance().toString();
 
+        boolean hasCitations = business.getCitations().size() > 0;
+        float markerColor = hasCitations ? BitmapDescriptorFactory.HUE_RED : BitmapDescriptorFactory.HUE_BLUE;
+
         LatLng latLng = new LatLng(latitude, longitude);
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(restaurantTitle)
-                .snippet(restaurantSnippet);
+                .snippet(restaurantSnippet)
+                .icon(BitmapDescriptorFactory.defaultMarker(markerColor));
 
-        Marker marker = ((RestaurantActivity)context).getGoogleMapsHandler().getMap().addMarker(markerOptions);
+        Marker marker = this.context.getGoogleMapsHandler().getMap().addMarker(markerOptions);
         marker.setTag(business);
+    }
+
+
+    public void setBusinessAdapter()
+    {
+        BusinessAdapter businessAdapter = new BusinessAdapter(this.context, this.businessArrayList);
+        this.context.getRecyclerView().setAdapter(businessAdapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this.context);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        this.context.getRecyclerView().setLayoutManager(llm);
     }
 
 }

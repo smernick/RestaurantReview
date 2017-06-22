@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+    >
 
     <fragment
         xmlns:tools="http://schemas.android.com/tools"
@@ -27,5 +28,36 @@
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/recyler_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_activity_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/business_list_background_card"
+            />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/show_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:text="showList"
+        android:textColor="@android:color/white"
+        android:background="@color/wallet_holo_blue_light"
+        />
+
+
+
 
 </RelativeLayout>

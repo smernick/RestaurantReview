@@ -242,7 +242,8 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
     {
         CustomBusiness business = (CustomBusiness) marker.getTag();
         if (business != null) {
-            ((RestaurantActivity) context).getCitationHandler().getCitations(business);
+            ((RestaurantActivity) this.context).getCitationHandler().showCitationListFragment(business);
+//            ((RestaurantActivity) context).getCitationHandler().getCitations(business);
         }
 
         return false;

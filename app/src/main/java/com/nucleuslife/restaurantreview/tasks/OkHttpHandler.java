@@ -61,6 +61,13 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
         try {
             JSONArray citationArray = new JSONArray(responseString) ;
 
+//            if (citationArray == null) {
+//                if (this.citationCallback != null)  {
+//                    this.citationCallback.onCitationFailure();
+//                }
+//                return;
+//            }
+//
             for (int i = 0; i < citationArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) citationArray.get(i);
                 String string = jsonObject.toString();
