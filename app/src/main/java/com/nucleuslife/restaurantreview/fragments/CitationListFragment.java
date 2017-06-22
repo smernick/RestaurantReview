@@ -8,14 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.nucleuslife.restaurantreview.Adapters.CitationAdapter;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
-public class RestaurantList extends AbstractCustomFragment implements View.OnClickListener
+import static com.nucleuslife.restaurantreview.Constants.CITATION_LIST_KEY;
+
+public class CitationListFragment extends AbstractCustomFragment implements View.OnClickListener
 {
     private RecyclerView recyclerView;
+
+    private TextView businessTitleTextView;
 
     @Nullable
     @Override
@@ -23,6 +28,7 @@ public class RestaurantList extends AbstractCustomFragment implements View.OnCli
     {
         View view = inflater.inflate(R.layout.restaurant_list_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_adapter);
+        this.businessTitleTextView = (TextView) view.findViewById(R.id.business_title_text_view);
 
         Button button = (Button) view.findViewById(R.id.back_button);
         button.setOnClickListener(this);
@@ -34,7 +40,9 @@ public class RestaurantList extends AbstractCustomFragment implements View.OnCli
 
     private void init()
     {
-        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable("business");
+        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(CITATION_LIST_KEY);
+
+        this.businessTitleTextView.setText(customBusiness.getBusinessInfo().name());
 
         CitationAdapter citationAdapter = new CitationAdapter(customBusiness);
         this.recyclerView.setAdapter(citationAdapter);

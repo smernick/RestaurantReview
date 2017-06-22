@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="THE_MOVIE_DB_API_TOKEN">XXXXX</string>
+
+
+
+    <string name="YELP_CONSUMER_KEY">HZbjl9zW3keKcqhRf5iVeA</string>
+    <string name="YELP_CONSUMER_KEY_SECRET">TuzVJcJvnnW5Ao4iIZHthQpEUnY</string>
+    <string name="YELP_TOKEN">B8kTXGDvid7dlKb2jAe7AIXtdEfCDiYv</string>
+    <string name="YELP_TOKEN_SECRET" >G1PnpnGCvvVxno0tDLaLMhWeMAc</string>
+
+</resources>

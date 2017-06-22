@@ -40,7 +40,7 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
             Response response = this.client.newCall(request).execute();
 
 
-//            Log.i("responsesam", responseString + ", contentlength: " +  (responseBody.contentLength()));
+            Log.i("responsesam", "responseHappening");
 
             return response.body().string();
 
