@@ -44,7 +44,7 @@ public class CitationListFragment extends AbstractCustomFragment implements View
 
         this.businessTitleTextView.setText(customBusiness.getBusinessInfo().name());
 
-        CitationAdapter citationAdapter = new CitationAdapter(customBusiness);
+        CitationAdapter citationAdapter = new CitationAdapter(this.getActivity(), customBusiness);
         this.recyclerView.setAdapter(citationAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(this.getActivity());

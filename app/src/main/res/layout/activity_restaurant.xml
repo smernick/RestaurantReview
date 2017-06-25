@@ -3,7 +3,6 @@
                 android:layout_height="match_parent"
                 android:weightSum="2"
     >
-
     <fragment
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
@@ -13,16 +12,34 @@
         tools:context="com.nucleuslife.restaurantreview.RestaurantActivity"/>
 
 
-    <Button
-        android:id="@+id/search_restaurant_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="search"
-        android:textColor="@android:color/white"
-        android:background="@color/wallet_holo_blue_light"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <com.nucleuslife.restaurantreview.views.CitationButton
+            android:id="@+id/search_restaurant_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_button"
+            android:textColor="@android:color/white"
+            android:background="@drawable/custom_button"
+            android:layout_marginEnd="20dp"
+            />
+
+        <com.nucleuslife.restaurantreview.views.CitationButton
+            android:id="@+id/show_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_business_list"
+            android:textColor="@android:color/white"
+            android:background="@drawable/custom_button"/>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragment_layout"
@@ -34,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:visibility="invisible"
         android:padding="5dp"
         >
 
@@ -45,19 +63,4 @@
             />
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/show_list_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="showList"
-        android:textColor="@android:color/white"
-        android:background="@color/wallet_holo_blue_light"
-        />
-
-
-
-
 </RelativeLayout>

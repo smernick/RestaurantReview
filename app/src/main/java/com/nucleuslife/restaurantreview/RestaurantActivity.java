@@ -5,31 +5,27 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.SupportMapFragment;
+import com.nucleuslife.restaurantreview.Handlers.BusinessHandler;
 import com.nucleuslife.restaurantreview.Handlers.CitationHandler;
 import com.nucleuslife.restaurantreview.Handlers.GoogleMapsHandler;
-import com.nucleuslife.restaurantreview.Handlers.RestaurantHandler;
 import com.nucleuslife.restaurantreview.fragments.AbstractCustomFragment;
+import com.nucleuslife.restaurantreview.views.CitationButton;
 
-public class RestaurantActivity extends FragmentActivity implements  View.OnClickListener, Animation.AnimationListener
+public class RestaurantActivity extends FragmentActivity implements  View.OnClickListener
 {
     private static final String TAG = RestaurantActivity.class.getSimpleName();
 
     private GoogleMapsHandler googleMapsHandler;
-    private RestaurantHandler restaurantHandler;
+    private BusinessHandler businessHandler;
     private CitationHandler citationHandler;
     private RelativeLayout recyclerViewContainer;
-    private Button searchButton;
-    private Button showList;
+    private CitationButton searchButton;
+    private CitationButton showList;
     private RecyclerView recyclerView;
-    private boolean isBusinessListVisible = false;
 
 
     @Override
@@ -50,10 +46,10 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
 
     private void init()
     {
-        this.restaurantHandler = new RestaurantHandler(this);
+        this.businessHandler = new BusinessHandler(this);
         this.citationHandler = new CitationHandler(this);
-        this.searchButton = (Button) findViewById(R.id.search_restaurant_button);
-        this.showList = (Button) findViewById(R.id.show_list_button);
+        this.searchButton = (CitationButton) findViewById(R.id.search_restaurant_button);
+        this.showList = (CitationButton) findViewById(R.id.show_list_button);
         this.recyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
         this.recyclerViewContainer = (RelativeLayout) findViewById(R.id.recyler_view_container);
 
@@ -65,10 +61,8 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
 
     public void showFragment(AbstractCustomFragment fragment)
     {
-        Log.i("recyclersam", "showfragment");
-
         FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+        transaction.setCustomAnimations(R.animator.slide_up, R.animator.slide_down);
         transaction.replace(R.id.fragment_layout, fragment);
         transaction.addToBackStack(fragment.getClass().getSimpleName());
         transaction.commit();
@@ -78,23 +72,10 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
     public void onClick(View view)
     {
         if (view.equals(this.searchButton)) {
-            this.restaurantHandler.makeCall();
+            this.businessHandler.searchRestaurants();
         } else if (view.equals(this.showList)) {
-
-            Log.i("visiblesam", "isVis " + this.isBusinessListVisible );
-
-            if (!this.isBusinessListVisible) {
-                this.restaurantHandler.setBusinessAdapter();
-            }
-
-            int animType = this.isBusinessListVisible ? R.anim.slide_down : R.anim.slide_up;
-            Animation slide = AnimationUtils.loadAnimation(getApplicationContext(), animType);
-            slide.setAnimationListener(this);
-
-            this.isBusinessListVisible = !this.isBusinessListVisible;
-            this.recyclerViewContainer.startAnimation(slide);
+           this.businessHandler.showRestaurantList();
         }
-
     }
 
     @Override
@@ -122,9 +103,9 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
         return citationHandler;
     }
 
-    public RestaurantHandler getRestaurantHandler()
+    public BusinessHandler getBusinessHandler()
     {
-        return restaurantHandler;
+        return businessHandler;
     }
 
     public RecyclerView getRecyclerView()
@@ -132,27 +113,8 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
         return recyclerView;
     }
 
-    @Override
-    public void onAnimationStart(Animation animation)
+    public RelativeLayout getRecyclerViewContainer()
     {
-        this.setAnimation();
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation)
-    {
-        this.setAnimation();
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation)
-    {
-
-    }
-
-    private void setAnimation()
-    {
-        int visibility = this.isBusinessListVisible ? View.VISIBLE : View.INVISIBLE;
-        this.recyclerViewContainer.setVisibility(visibility);
+        return recyclerViewContainer;
     }
 }

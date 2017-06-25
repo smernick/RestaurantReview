@@ -12,7 +12,7 @@ import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
 import java.util.ArrayList;
 
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyViewHolder> {
+public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> {
 
     private ArrayList<CustomBusiness> businessList;
     private Context context;
@@ -20,11 +20,11 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     /**
      * View holder class
      * */
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class BusinessViewHolder extends RecyclerView.ViewHolder {
         private TextView nameTextView;
         private TextView citationCount;
 
-        private MyViewHolder(View view) {
+        private BusinessViewHolder(View view) {
             super(view);
             this.nameTextView = (TextView) view.findViewById(R.id.restaurant_name);
             this.citationCount = (TextView) view.findViewById(R.id.citation_count);
@@ -37,7 +37,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(BusinessViewHolder holder, int position) {
         CustomBusiness business = this.businessList.get(position);
         this.setCardTexts(holder, business, position);
     }
@@ -48,12 +48,12 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BusinessViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_row_layout, parent, false);
-        return new MyViewHolder(v);
+        return new BusinessViewHolder(v);
     }
 
-    private void setCardTexts(MyViewHolder holder, CustomBusiness customBusiness, int position )
+    private void setCardTexts(BusinessViewHolder holder, CustomBusiness customBusiness, int position)
     {
         String restaurantName = customBusiness.getBusinessInfo().name();
         int citationCount =  ( customBusiness.getCitations() != null) ? customBusiness.getCitations().size() : 0;

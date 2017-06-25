@@ -32,15 +32,13 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
     @Override
     protected String doInBackground(String... params)
     {
+        Log.i("paramsam", "params: " + params[0]);
         Request.Builder builder = new Request.Builder();
         builder.url(params[0]);
         Request request = builder.build();
 
         try {
             Response response = this.client.newCall(request).execute();
-
-
-            Log.i("responsesam", "responseHappening");
 
             return response.body().string();
 
@@ -58,45 +56,42 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
         super.onPostExecute(responseString);
         ArrayList<Citation> citationArrayList = new ArrayList<>();
 
-        try {
-            JSONArray citationArray = new JSONArray(responseString) ;
+        String response = responseString;
 
-//            if (citationArray == null) {
-//                if (this.citationCallback != null)  {
-//                    this.citationCallback.onCitationFailure();
-//                }
-//                return;
-//            }
-//
-            for (int i = 0; i < citationArray.length(); i++) {
-                JSONObject jsonObject = (JSONObject) citationArray.get(i);
-                String string = jsonObject.toString();
-                Log.i("responseSam", string);
+        if (response != null) {
+            try {
+                JSONArray citationArray = new JSONArray(response);
 
-                String action = jsonObject.get("action").toString();
-                String criticalFlag = jsonObject.get("critical_flag").toString();
-                String inspectionDate = jsonObject.get("inspection_date").toString();
-                String inspectionDType = jsonObject.get("inspection_type").toString();
-                String score = jsonObject.get("score").toString();
-                String violationCode = jsonObject.get("violation_code").toString();
-                String violationDescription = jsonObject.get("violation_description").toString();
+                for (int i = 0; i < citationArray.length(); i++) {
+                    JSONObject jsonObject = (JSONObject) citationArray.get(i);
+                    String string = jsonObject.toString();
+                    Log.i("responseSam", string);
 
-                Citation citation = new Citation(criticalFlag, inspectionDType, inspectionDate, score, violationCode, violationDescription);
-                citationArrayList.add(citation);
+                    String action = jsonObject.get("action").toString();
+                    String criticalFlag = jsonObject.get("critical_flag").toString();
+                    String inspectionDate = jsonObject.get("inspection_date").toString();
+                    String inspectionDType = jsonObject.get("inspection_type").toString();
+                    String score = jsonObject.get("score").toString();
+                    String violationCode = jsonObject.get("violation_code").toString();
+                    String violationDescription = jsonObject.get("violation_description").toString();
+
+                    Citation citation = new Citation(criticalFlag, inspectionDType, inspectionDate, score, violationCode, violationDescription);
+                    citationArrayList.add(citation);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+                if (this.citationCallback != null) {
+                    this.citationCallback.onCitationFailure();
+                }
             }
+        }
 
-            this.customBusiness.setCitations(citationArrayList);
+        this.customBusiness.setCitations(citationArrayList);
 
-            if (this.citationCallback != null)  {
-                this.citationCallback.onCitationSuccess(this.customBusiness);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-            if (this.citationCallback != null)  {
-                this.citationCallback.onCitationFailure();
-            }
+        if (this.citationCallback != null)  {
+            this.citationCallback.onCitationSuccess(this.customBusiness);
         }
 
     }

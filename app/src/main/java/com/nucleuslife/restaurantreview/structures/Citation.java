@@ -44,7 +44,7 @@ public class Citation
         return violationCode;
     }
 
-    public String getViolationDesciption()
+    public String getCitationDescription()
     {
         return violationDesciption;
     }

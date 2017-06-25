@@ -4,4 +4,13 @@
     <string name="restaurant_list_formatted_name">%1$s: %2$s</string>
     <string name="restaurant_citation_count">Citations: %d</string>
 
+    <string name="citation_date_formatted">Date: %s</string>
+    <string name="citation_type_formatted">Citation Type: %s</string>
+    <string name="citation_critical_formatted">Critical: %s</string>
+    <string name="citation_code_formatted">Code: %s</string>
+
+    <string name="search_button">SEARCH</string>
+    <string name="show_business_list">Show List</string>
+
+
 </resources>

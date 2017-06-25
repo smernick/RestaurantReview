@@ -38,7 +38,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(40.7081, -73.9571);
-    private static final int DEFAULT_ZOOM = 15;
+    public static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -241,9 +241,8 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
     public boolean onMarkerClick(Marker marker)
     {
         CustomBusiness business = (CustomBusiness) marker.getTag();
-        if (business != null) {
+        if (business != null && business.getCitations().size() > 0) {
             ((RestaurantActivity) this.context).getCitationHandler().showCitationListFragment(business);
-//            ((RestaurantActivity) context).getCitationHandler().getCitations(business);
         }
 
         return false;

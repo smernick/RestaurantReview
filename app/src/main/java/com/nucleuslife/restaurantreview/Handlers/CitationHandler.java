@@ -1,6 +1,5 @@
 package com.nucleuslife.restaurantreview.Handlers;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,9 +19,9 @@ import static com.nucleuslife.restaurantreview.Constants.CITATION_LIST_KEY;
 
 public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
 {
-    Context context;
+    RestaurantActivity context;
 
-    public CitationHandler(Context context)
+    public CitationHandler(RestaurantActivity context)
     {
         this.context = context;
     }
@@ -52,14 +51,14 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
         bundle.putSerializable(CITATION_LIST_KEY, customBusiness);
         fragment.setArguments(bundle);
 
-        ((RestaurantActivity) this.context).showFragment(fragment);
+        this.context.showFragment(fragment);
     }
 
     @Override
     public void onCitationSuccess(CustomBusiness customBusiness)
     {
         Log.i("citationsam", "size: " + customBusiness.getCitations().size());
-        ((RestaurantActivity)context).getRestaurantHandler().addMarkers(customBusiness);
+        this.context.getBusinessHandler().addMarkers(customBusiness);
 //        this.showCitationListFragment(customBusiness);
     }
 
