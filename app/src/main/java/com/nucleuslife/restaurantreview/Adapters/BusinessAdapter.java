@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nucleuslife.restaurantreview.R;
-import com.nucleuslife.restaurantreview.RestaurantActivity;
+import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 import com.nucleuslife.restaurantreview.views.CellTouchListener;
 import com.nucleuslife.restaurantreview.views.TouchListener;
@@ -17,7 +17,8 @@ import java.util.ArrayList;
 public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> implements  View.OnClickListener {
 
     private ArrayList<CustomBusiness> businessList;
-    private RestaurantActivity context;
+    private MainActivity context;
+    private BusinessSelectedListener businessSelectedListener;
 
     /**
      * View holder class
@@ -35,9 +36,10 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         }
     }
 
-    public BusinessAdapter(RestaurantActivity context, ArrayList<CustomBusiness> businessList) {
+    public BusinessAdapter(MainActivity context, ArrayList<CustomBusiness> businessList, BusinessSelectedListener businessSelectedListener) {
         this.businessList = businessList;
         this.context = context;
+        this.businessSelectedListener = businessSelectedListener;
     }
 
     @Override
@@ -73,9 +75,15 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
     @Override
     public void onClick(View view)
     {
-        int itemPosition = this.context.getRecyclerView().getChildLayoutPosition(view);
-        CustomBusiness business = this.businessList.get(itemPosition);
-        this.context.getCitationHandler().showCitationListFragment(business);
+//        int itemPosition = this.context.getRecyclerView().getChildLayoutPosition(view);
+//        CustomBusiness business = this.businessList.get(itemPosition);
+//        this.context.getCitationHandler().showCitationListFragment(business);
+
+        this.businessSelectedListener.onBusinessSelected(view);
     }
 
+    public interface BusinessSelectedListener
+    {
+        void onBusinessSelected(View view);
+    }
 }

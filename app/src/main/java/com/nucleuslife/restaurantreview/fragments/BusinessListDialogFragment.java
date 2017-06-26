@@ -14,13 +14,15 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.nucleuslife.restaurantreview.Adapters.BusinessAdapter;
+import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.R;
-import com.nucleuslife.restaurantreview.RestaurantActivity;
+import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
 
-public class BusinessListDialogFragment extends DialogFragment
+public class BusinessListDialogFragment extends DialogFragment implements BusinessAdapter.BusinessSelectedListener
 {
     private RecyclerView recyclerView;
+    private MainActivity activityContext;
 
 
     @Override
@@ -39,7 +41,6 @@ public class BusinessListDialogFragment extends DialogFragment
         windowParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(windowParams);
 
-
         return dialog;
     }
 
@@ -51,27 +52,37 @@ public class BusinessListDialogFragment extends DialogFragment
         View view = inflater.inflate(R.layout.business_list_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_list_recycler_view);
 
-
         this.init();
 
         return view;
     }
 
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        this.getDialog().setCanceledOnTouchOutside(true);
-
-    }
-
     private void init()
     {
-        BusinessAdapter businessAdapter = ((RestaurantActivity) this.getActivity()).getBusinessHandler().getBusinessAdapter();
+        this.activityContext = (MainActivity) this.getActivity();
+        BusinessAdapter businessAdapter = new BusinessAdapter(this.activityContext, this.activityContext.getBusinessHandler().getBusinessArrayList(), this);
         this.recyclerView.setAdapter(businessAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(this.getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         this.recyclerView.setLayoutManager(llm);
+    }
+//
+//    @Override
+//    public void onBusinessSelected(CustomBusiness business)
+//    {
+//        this.dismiss();
+//        ((MainActivity)this.getActivity()).getCitationHandler().showCitationListFragment(business);
+//    }
+
+
+    @Override
+    public void onBusinessSelected(View view)
+    {
+        this.dismiss();
+        int itemPosition = this.recyclerView.getChildLayoutPosition(view);
+        CustomBusiness business = ((MainActivity) this.getActivity()).getBusinessHandler().getBusinessArrayList().get(itemPosition);
+        this.activityContext.getCitationHandler().showCitationListFragment(business);
+
     }
 }

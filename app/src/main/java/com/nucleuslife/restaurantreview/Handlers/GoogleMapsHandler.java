@@ -20,8 +20,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.R;
-import com.nucleuslife.restaurantreview.RestaurantActivity;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
 public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener
@@ -65,7 +65,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
         }
 
         this.mGoogleApiClient = new GoogleApiClient.Builder(context)
-                .enableAutoManage(((RestaurantActivity) context) /* FragmentActivity */,
+                .enableAutoManage(((MainActivity) context) /* FragmentActivity */,
                         this /* OnConnectionFailedListener */)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
@@ -118,7 +118,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
     @Override
     public void onConnected(Bundle connectionHint) {
         // Build the map.
-        SupportMapFragment mapFragment = (SupportMapFragment) ((RestaurantActivity) context).getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) ((MainActivity) context).getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -140,7 +140,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(((RestaurantActivity) context),
+            ActivityCompat.requestPermissions(((MainActivity) context),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -185,7 +185,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(((RestaurantActivity) context),
+            ActivityCompat.requestPermissions(((MainActivity) context),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -242,7 +242,7 @@ public class GoogleMapsHandler implements OnMapReadyCallback, GoogleApiClient.Co
     {
         CustomBusiness business = (CustomBusiness) marker.getTag();
         if (business != null && business.getCitations().size() > 0) {
-            ((RestaurantActivity) this.context).getCitationHandler().showCitationListFragment(business);
+            ((MainActivity) this.context).getCitationHandler().showCitationListFragment(business);
         }
 
         return false;

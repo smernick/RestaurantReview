@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.nucleuslife.restaurantreview.RestaurantActivity;
+import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.fragments.CitationListFragment;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 import com.nucleuslife.restaurantreview.tasks.OkHttpHandler;
@@ -19,9 +19,9 @@ import static com.nucleuslife.restaurantreview.Constants.BUSINESS_KEY;
 
 public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
 {
-    RestaurantActivity context;
+    MainActivity context;
 
-    public CitationHandler(RestaurantActivity context)
+    public CitationHandler(MainActivity context)
     {
         this.context = context;
     }

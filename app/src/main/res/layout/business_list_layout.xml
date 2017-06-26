@@ -3,12 +3,15 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/business_list_background_card">
+                android:paddingBottom="10dp"
+                android:background="@color/transparent"
+    >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/business_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/business_list_background_card"
             />
 
 </RelativeLayout>

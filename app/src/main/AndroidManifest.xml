@@ -39,7 +39,7 @@
 
 
         <activity
-            android:name=".RestaurantActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_restaurant">
             <intent-filter>
