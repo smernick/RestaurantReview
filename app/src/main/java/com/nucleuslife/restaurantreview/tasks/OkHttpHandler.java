@@ -67,7 +67,7 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
                     String string = jsonObject.toString();
                     Log.i("responseSam", string);
 
-                    String action = jsonObject.get("action").toString();
+//                    String action = jsonObject.get("action").toString();
                     String criticalFlag = jsonObject.get("critical_flag").toString();
                     String inspectionDate = jsonObject.get("inspection_date").toString();
                     String inspectionDType = jsonObject.get("inspection_type").toString();

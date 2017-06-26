@@ -6,16 +6,16 @@ import android.view.View;
 
 import com.nucleuslife.restaurantreview.utils.ViewUtil;
 
-public class CitationTouchListener implements View.OnTouchListener
+public class TouchListener implements View.OnTouchListener
 {
     private TouchInterface touchInterface;
 
-    public CitationTouchListener()
+    public TouchListener()
     {
         this.touchInterface = new ScaleDownTouchListener();
     }
 
-    public CitationTouchListener(TouchInterface touchInterface)
+    public TouchListener(TouchInterface touchInterface)
     {
         if (touchInterface == null) {
             touchInterface = new ScaleDownTouchListener();

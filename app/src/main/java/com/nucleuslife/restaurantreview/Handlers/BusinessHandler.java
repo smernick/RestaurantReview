@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -14,6 +13,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.nucleuslife.restaurantreview.Adapters.BusinessAdapter;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.RestaurantActivity;
+import com.nucleuslife.restaurantreview.fragments.BusinessListDialogFragment;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
@@ -189,6 +189,11 @@ public class BusinessHandler implements Animation.AnimationListener
         this.context.getRecyclerView().setLayoutManager(llm);
     }
 
+    public BusinessAdapter getBusinessAdapter()
+    {
+        return new BusinessAdapter(this.context, this.businessArrayList);
+    }
+
     private void clearMarkers()
     {
         for (int i = 0; i < this.markerArrayList.size(); i++){
@@ -198,21 +203,37 @@ public class BusinessHandler implements Animation.AnimationListener
 
         this.markerArrayList.clear();
     }
-
+//
+//
+//    public void showRestaurantList()
+//    {
+//        Log.i("showsam", "showRestaurantList");
+//        if (this.context.getRecyclerViewContainer().getVisibility() == View.INVISIBLE) {
+//            this.setBusinessAdapter();
+//        }
+//
+//        int animType = this.context.getRecyclerView().getVisibility() == View.VISIBLE ? R.anim.slide_down : R.anim.slide_up;
+//        Animation slide = AnimationUtils.loadAnimation(this.context.getApplicationContext(), animType);
+//        slide.setAnimationListener(this);
+//
+//        this.businessListActive = !this.businessListActive;
+//        this.context.getRecyclerViewContainer().startAnimation(slide);
+//    }
 
     public void showRestaurantList()
     {
-        Log.i("showsam", "showRestaurantList");
-        if (this.context.getRecyclerViewContainer().getVisibility() == View.INVISIBLE) {
-            this.setBusinessAdapter();
-        }
+        BusinessListDialogFragment fragment = new BusinessListDialogFragment();
+//        Bundle bundle = new Bundle();/
+//        bundle.putSerializable(BUSI/NESS_LIST_KEY, this.businessArrayList);
+//        fragment.setArguments(bundle);
 
-        int animType = this.context.getRecyclerView().getVisibility() == View.VISIBLE ? R.anim.slide_down : R.anim.slide_up;
-        Animation slide = AnimationUtils.loadAnimation(this.context.getApplicationContext(), animType);
-        slide.setAnimationListener(this);
+        // Create the fragment and show it as a dialog.
+        BusinessListDialogFragment businessListDialog = new BusinessListDialogFragment();
 
-        this.businessListActive = !this.businessListActive;
-        this.context.getRecyclerViewContainer().startAnimation(slide);
+        businessListDialog.show(context.getFragmentManager(), "dialog");
+
+//        this.context.showFragment(fragment);
+
     }
 
 

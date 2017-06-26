@@ -1,5 +1,6 @@
 package com.nucleuslife.restaurantreview;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +14,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.nucleuslife.restaurantreview.Handlers.BusinessHandler;
 import com.nucleuslife.restaurantreview.Handlers.CitationHandler;
 import com.nucleuslife.restaurantreview.Handlers.GoogleMapsHandler;
-import com.nucleuslife.restaurantreview.fragments.AbstractCustomFragment;
 import com.nucleuslife.restaurantreview.views.CitationButton;
 
 public class RestaurantActivity extends FragmentActivity implements  View.OnClickListener
@@ -59,7 +59,7 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
 
 
 
-    public void showFragment(AbstractCustomFragment fragment)
+    public void showFragment(Fragment fragment)
     {
         FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.slide_up, R.animator.slide_down);

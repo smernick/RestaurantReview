@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.RestaurantActivity;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
+import com.nucleuslife.restaurantreview.views.CellTouchListener;
+import com.nucleuslife.restaurantreview.views.TouchListener;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         private BusinessViewHolder(View view) {
             super(view);
             view.setOnClickListener(BusinessAdapter.this);
+            view.setOnTouchListener(new TouchListener(new CellTouchListener()));
             this.nameTextView = (TextView) view.findViewById(R.id.restaurant_name);
             this.citationCount = (TextView) view.findViewById(R.id.citation_count);
         }
