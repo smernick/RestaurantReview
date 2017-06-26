@@ -26,7 +26,7 @@ public class CitationListFragment extends AbstractCustomFragment implements View
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.restaurant_list_layout, container, false);
+        View view = inflater.inflate(R.layout.citation_list_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_adapter);
         this.businessTitleTextView = (TextView) view.findViewById(R.id.business_title_text_view);
 
