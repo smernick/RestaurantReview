@@ -2,6 +2,7 @@ package com.nucleuslife.restaurantreview;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,6 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
     private CitationButton searchButton;
     private CitationButton showList;
     private RecyclerView recyclerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +66,21 @@ public class RestaurantActivity extends FragmentActivity implements  View.OnClic
         transaction.replace(R.id.fragment_layout, fragment);
         transaction.addToBackStack(fragment.getClass().getSimpleName());
         transaction.commit();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                RestaurantActivity.this.businessHandler.searchRestaurants();
+            }
+        }, 500);
     }
 
     @Override

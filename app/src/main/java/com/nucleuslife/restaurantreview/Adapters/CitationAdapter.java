@@ -79,7 +79,6 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
         holder.citationDate.setText(formattedDateInfo);
         holder.citationCode.setText(citationCodeFormatted);
         holder.citationDescription.setText(citation.getCitationDescription());
-
     }
 
 }

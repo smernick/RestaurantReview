@@ -53,6 +53,7 @@ public class BusinessHandler implements Animation.AnimationListener
         YelpAPI yelpAPI = this.yelpApiCall();
         Call<SearchResponse> call = yelpAPI.search(this.coordinateOptions, this.getParams());
         call.enqueue(this.callback);
+        Log.i("samsam", "searchRestaurants");
     }
 
 
@@ -116,7 +117,7 @@ public class BusinessHandler implements Animation.AnimationListener
         @Override
         public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
             SearchResponse searchResponse = response.body();
-            Log.i("yelpresponse", searchResponse.toString());
+            Log.i("samsam", searchResponse.toString());
             BusinessHandler.this.parseRestaurantData(searchResponse);
 
             // Update UI text with the searchResponse.
@@ -169,6 +170,12 @@ public class BusinessHandler implements Animation.AnimationListener
         Marker marker = this.context.getGoogleMapsHandler().getMap().addMarker(markerOptions);
         marker.setTag(business);
         this.markerArrayList.add(marker);
+
+        Log.i("samsam", "arraySize " + this.markerArrayList.size());
+        if (this.markerArrayList.size() == 10) {
+            Log.i("samsam", "showRestaurantList");
+            this.showRestaurantList();
+        }
     }
 
 
@@ -195,6 +202,7 @@ public class BusinessHandler implements Animation.AnimationListener
 
     public void showRestaurantList()
     {
+        Log.i("showsam", "showRestaurantList");
         if (this.context.getRecyclerViewContainer().getVisibility() == View.INVISIBLE) {
             this.setBusinessAdapter();
         }
@@ -212,7 +220,10 @@ public class BusinessHandler implements Animation.AnimationListener
     public void onAnimationStart(Animation animation)
 
     {
+        Log.i("showsam", "onAnimStart");
+
         if (this.context.getRecyclerViewContainer().getVisibility() == View.INVISIBLE && this.businessListActive) {
+            Log.i("showsam", "setVis");
             this.context.getRecyclerViewContainer().setVisibility(View.VISIBLE);
         }
     }
@@ -220,8 +231,10 @@ public class BusinessHandler implements Animation.AnimationListener
     @Override
     public void onAnimationEnd(Animation animation)
     {
-//        this.setAnimation();
+        Log.i("showsam", "onAnimEnd");
+
         if (this.context.getRecyclerViewContainer().getVisibility() == View.VISIBLE && !this.businessListActive) {
+            Log.i("showsam", "onAnimEnd");
             this.context.getRecyclerViewContainer().setVisibility(View.INVISIBLE);
         }
     }
@@ -236,4 +249,10 @@ public class BusinessHandler implements Animation.AnimationListener
 //        int visibility = this.context.getRecyclerViewContainer().getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE;
 //        this.context.getRecyclerViewContainer().setVisibility(visibility);
 //    }
+
+
+    public interface OnRestaurantsLoaded
+    {
+        void onRestaurantsLoaded();
+    }
 }

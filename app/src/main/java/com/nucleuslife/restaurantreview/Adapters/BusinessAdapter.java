@@ -1,6 +1,5 @@
 package com.nucleuslife.restaurantreview.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nucleuslife.restaurantreview.R;
+import com.nucleuslife.restaurantreview.RestaurantActivity;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
 import java.util.ArrayList;
 
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> {
+public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> implements  View.OnClickListener {
 
     private ArrayList<CustomBusiness> businessList;
-    private Context context;
+    private RestaurantActivity context;
 
     /**
      * View holder class
@@ -26,12 +26,13 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
 
         private BusinessViewHolder(View view) {
             super(view);
+            view.setOnClickListener(BusinessAdapter.this);
             this.nameTextView = (TextView) view.findViewById(R.id.restaurant_name);
             this.citationCount = (TextView) view.findViewById(R.id.citation_count);
         }
     }
 
-    public BusinessAdapter(Context context, ArrayList<CustomBusiness> businessList) {
+    public BusinessAdapter(RestaurantActivity context, ArrayList<CustomBusiness> businessList) {
         this.businessList = businessList;
         this.context = context;
     }
@@ -66,4 +67,12 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         holder.citationCount.setText(formattedCitationCount);
 
     }
+    @Override
+    public void onClick(View view)
+    {
+        int itemPosition = this.context.getRecyclerView().getChildLayoutPosition(view);
+        CustomBusiness business = this.businessList.get(itemPosition);
+        this.context.getCitationHandler().showCitationListFragment(business);
+    }
+
 }

@@ -14,7 +14,7 @@ import com.nucleuslife.restaurantreview.Adapters.CitationAdapter;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
-import static com.nucleuslife.restaurantreview.Constants.CITATION_LIST_KEY;
+import static com.nucleuslife.restaurantreview.Constants.BUSINESS_KEY;
 
 public class CitationListFragment extends AbstractCustomFragment implements View.OnClickListener
 {
@@ -40,7 +40,7 @@ public class CitationListFragment extends AbstractCustomFragment implements View
 
     private void init()
     {
-        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(CITATION_LIST_KEY);
+        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(BUSINESS_KEY);
 
         this.businessTitleTextView.setText(customBusiness.getBusinessInfo().name());
 

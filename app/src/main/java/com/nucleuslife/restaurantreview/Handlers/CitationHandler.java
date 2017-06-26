@@ -15,7 +15,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static com.nucleuslife.restaurantreview.Constants.CITATION_LIST_KEY;
+import static com.nucleuslife.restaurantreview.Constants.BUSINESS_KEY;
 
 public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
 {
@@ -48,7 +48,7 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
     {
         CitationListFragment fragment = new CitationListFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(CITATION_LIST_KEY, customBusiness);
+        bundle.putSerializable(BUSINESS_KEY, customBusiness);
         fragment.setArguments(bundle);
 
         this.context.showFragment(fragment);
