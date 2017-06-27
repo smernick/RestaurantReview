@@ -64,6 +64,9 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
         String restaurantName = customBusiness.getBusinessInfo().name();
         int citationCount =  ( customBusiness.getCitations() != null) ? customBusiness.getCitations().size() : 0;
 
+        if (citationCount == 0) {
+        }
+
         String formattedTitleInfo = String.format(context.getString(R.string.restaurant_list_formatted_name),Integer.toString((++position)), restaurantName);
         String formattedCitationCount = String.format(context.getString(R.string.restaurant_citation_count), citationCount);
 

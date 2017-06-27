@@ -91,6 +91,7 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
             }
         }
 
+        Log.i("testlist", "setCitation");
         this.customBusiness.setCitations(citationArrayList);
 
         if (this.citationCallback != null)  {

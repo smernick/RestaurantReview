@@ -2,6 +2,7 @@ package com.nucleuslife.restaurantreview.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,14 +68,6 @@ public class BusinessListDialogFragment extends DialogFragment implements Busine
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         this.recyclerView.setLayoutManager(llm);
     }
-//
-//    @Override
-//    public void onBusinessSelected(CustomBusiness business)
-//    {
-//        this.dismiss();
-//        ((MainActivity)this.getActivity()).getCitationHandler().showCitationListFragment(business);
-//    }
-
 
     @Override
     public void onBusinessSelected(View view)
@@ -83,6 +76,13 @@ public class BusinessListDialogFragment extends DialogFragment implements Busine
         int itemPosition = this.recyclerView.getChildLayoutPosition(view);
         CustomBusiness business = ((MainActivity) this.getActivity()).getBusinessHandler().getBusinessArrayList().get(itemPosition);
         this.activityContext.getCitationHandler().showCitationListFragment(business);
+    }
 
+    @Override
+    public void show(FragmentManager manager, String tag)
+    {
+        if (MainActivity.isActivityVisible) {
+            super.show(manager, tag);
+        }
     }
 }

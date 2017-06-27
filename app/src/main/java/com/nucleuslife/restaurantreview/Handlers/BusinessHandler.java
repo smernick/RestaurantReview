@@ -120,7 +120,6 @@ public class BusinessHandler
             Log.i("samsam", searchResponse.toString());
             BusinessHandler.this.parseRestaurantData(searchResponse);
 
-            // Update UI text with the searchResponse.
         }
         @Override
         public void onFailure(Call<SearchResponse> call, Throwable t) {
@@ -172,8 +171,8 @@ public class BusinessHandler
         marker.setTag(business);
         this.markerArrayList.add(marker);
 
-        Log.i("samsam", "arraySize " + this.markerArrayList.size());
-        if (this.markerArrayList.size() == this.yelpBusinessResponseSize) {
+        Log.i("samsam", "markerSize " + this.markerArrayList.size()  + ", businessSize " + this.businessArrayList.size());
+        if (this.markerArrayList.size() == this.businessArrayList.size()) {
             Log.i("samsam", "showRestaurantList");
             this.showRestaurantList();
         }
@@ -204,10 +203,4 @@ public class BusinessHandler
     }
 
 
-//    @Override
-//    public void onBusinessSelected(CustomBusiness business)
-//    {
-////        this.dismiss();
-////        ((MainActivity)this.getActivity()).getCitationHandler().showCitationListFragment(business);
-//    }
 }

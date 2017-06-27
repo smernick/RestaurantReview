@@ -18,6 +18,7 @@ import com.nucleuslife.restaurantreview.views.CitationButton;
 public class MainActivity extends FragmentActivity implements  View.OnClickListener
 {
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static boolean isActivityVisible = true;
 
     protected LoadingDialog loadingDialog;
 
@@ -27,6 +28,14 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     private CitationButton searchButton;
     private CitationButton showList;
 
+    private Runnable startAppHandler = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            MainActivity.this.businessHandler.searchRestaurants();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,11 +72,14 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
 
     public void showFragment(Fragment fragment)
     {
-        FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.slide_up, R.animator.slide_down);
-        transaction.replace(R.id.fragment_layout, fragment);
-        transaction.addToBackStack(fragment.getClass().getSimpleName());
-        transaction.commit();
+        if (MainActivity.isActivityVisible) {
+            FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
+            transaction.replace(R.id.fragment_layout, fragment);
+            transaction.addToBackStack(fragment.getClass().getSimpleName());
+            transaction.commit();
+        }
+
     }
 
     @Override
@@ -75,15 +87,8 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     protected void onStart()
     {
         super.onStart();
-
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                MainActivity.this.businessHandler.searchRestaurants();
-            }
-        }, 500);
+        MainActivity.isActivityVisible = true;
+        new Handler().postDelayed(this.startAppHandler, 100);
     }
     @Override
     public void onClick(View view)
@@ -91,7 +96,7 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
         if (view.equals(this.searchButton)) {
             this.businessHandler.searchRestaurants();
         } else if (view.equals(this.showList)) {
-           this.businessHandler.showRestaurantList();
+            this.businessHandler.showRestaurantList();
         }
     }
 
@@ -108,6 +113,13 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
         if (mapIsNotNull) {
             super.onSaveInstanceState(outState);
         }
+    }
+
+    @Override
+    protected void onStop()
+    {
+        MainActivity.isActivityVisible = false;
+        super.onStop();
     }
 
     public GoogleMapsHandler getGoogleMapsHandler()

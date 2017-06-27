@@ -59,7 +59,6 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
     {
         Log.i("citationsam", "size: " + customBusiness.getCitations().size());
         this.context.getBusinessHandler().addMarkers(customBusiness);
-//        this.showCitationListFragment(customBusiness);
     }
 
     @Override
