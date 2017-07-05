@@ -1,5 +1,6 @@
 package com.nucleuslife.restaurantreview.structures;
 
+import com.nucleuslife.restaurantreview.utils.CitationUtil;
 import com.yelp.clientlib.entities.Business;
 
 import java.io.Serializable;
@@ -28,5 +29,18 @@ public class CustomBusiness implements Serializable
     public void setCitations(ArrayList<Citation> citations)
     {
         this.citations = citations;
+    }
+
+    public CitationLevel getCitationLevel()
+    {
+        return CitationUtil.getCitationLevel(this);
+    }
+
+
+    public enum CitationLevel
+    {
+        SERIOUS,
+        MODETRATE,
+        NONE
     }
 }

@@ -9,8 +9,8 @@
     <string name="citation_critical_formatted">Critical: %s</string>
     <string name="citation_code_formatted">Code: %s</string>
 
-    <string name="search_button">SEARCH</string>
+    <string name="search_for_restaurant">Search</string>
+    <string name="around_me_button">Around Me</string>
     <string name="show_business_list">Show List</string>
-
 
 </resources>

@@ -25,8 +25,11 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     private GoogleMapsHandler googleMapsHandler;
     private BusinessHandler businessHandler;
     private CitationHandler citationHandler;
-    private CitationButton searchButton;
-    private CitationButton showList;
+    private CitationButton suggestBusinessButton;
+    private CitationButton showListButton;
+    private CitationButton searchUniqueBusinessButton;
+
+
 
     private Runnable startAppHandler = new Runnable()
     {
@@ -56,13 +59,15 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     {
         this.businessHandler = new BusinessHandler(this);
         this.citationHandler = new CitationHandler(this);
-        this.searchButton = (CitationButton) findViewById(R.id.search_restaurant_button);
-        this.showList = (CitationButton) findViewById(R.id.show_list_button);
+        this.suggestBusinessButton = (CitationButton) findViewById(R.id.around_me_button);
+        this.showListButton = (CitationButton) findViewById(R.id.show_list_button);
+        this.searchUniqueBusinessButton = (CitationButton) findViewById(R.id.search_for_business);
+
         this.loadingDialog = new LoadingDialog();
 
 
-        this.searchButton.setOnClickListener(this);
-        this.showList.setOnClickListener(this);
+        this.suggestBusinessButton.setOnClickListener(this);
+        this.showListButton.setOnClickListener(this);
     }
 
     public void showLoadingDialog()
@@ -88,16 +93,19 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     {
         super.onStart();
         MainActivity.isActivityVisible = true;
-        new Handler().postDelayed(this.startAppHandler, 100);
+        new Handler().postDelayed(this.startAppHandler, 500);
     }
     @Override
     public void onClick(View view)
     {
-        if (view.equals(this.searchButton)) {
+        if (view.equals(this.suggestBusinessButton)) {
             this.businessHandler.searchRestaurants();
-        } else if (view.equals(this.showList)) {
+        } else if (view.equals(this.showListButton)) {
             this.businessHandler.showRestaurantList();
+        } else if (view.equals(this.searchUniqueBusinessButton)) {
+
         }
+
     }
 
     @Override

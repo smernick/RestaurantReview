@@ -5,16 +5,16 @@ public class Citation
     private String critical;
     private String inspectionType;
     private String inspectionDate;
-    private String score;
+    private String grade;
     private String violationCode;
     private String violationDesciption;
 
-    public Citation(String critical, String inspectionType, String inspectionDate, String score, String violationCode, String violationDesciption)
+    public Citation(String critical, String inspectionType, String inspectionDate, String grade, String violationCode, String violationDesciption)
     {
         this.critical = critical;
         this.inspectionType = inspectionType;
         this.inspectionDate = inspectionDate;
-        this.score = score;
+        this.grade = grade;
         this.violationCode = violationCode;
         this.violationDesciption = violationDesciption;
     }
@@ -34,9 +34,9 @@ public class Citation
         return inspectionDate;
     }
 
-    public String getScore()
+    public String getGrade()
     {
-        return score;
+        return grade;
     }
 
     public String getViolationCode()

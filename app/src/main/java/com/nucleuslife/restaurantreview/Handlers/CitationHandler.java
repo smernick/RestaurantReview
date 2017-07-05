@@ -31,7 +31,7 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
         if (business.getBusinessInfo().phone() != null) {
             String phoneString = business.getBusinessInfo().phone();
 
-            String uri = Uri.parse("https://data.cityofnewyork.us/resource/9w7m-hzhe.json?")
+                String uri = Uri.parse("https://data.cityofnewyork.us/resource/9w7m-hzhe.json?")
                     .buildUpon()
                     .appendQueryParameter("phone", phoneString)
                     .build().toString();

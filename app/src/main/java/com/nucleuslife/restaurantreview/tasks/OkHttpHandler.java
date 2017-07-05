@@ -73,12 +73,12 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
                     String criticalFlag = jsonObject.has("critical_flag") ? jsonObject.get("critical_flag").toString() : KEY_UNAVAILABLE;
                     String inspectionDate = jsonObject.has("inspection_date") ? jsonObject.get("inspection_date").toString() : KEY_UNAVAILABLE;
                     String inspectionDType = jsonObject.has("inspection_type") ? jsonObject.get("inspection_type").toString() : KEY_UNAVAILABLE;
-                    String score = jsonObject.has("score") ? jsonObject.get("score").toString() : KEY_UNAVAILABLE;
+                    String grade = jsonObject.has("grade") ? jsonObject.get("grade").toString() : KEY_UNAVAILABLE;
                     String violationCode = jsonObject.has("violation_code") ? jsonObject.get("violation_code").toString() : KEY_UNAVAILABLE;
                     String violationDescription = jsonObject.has("violation_description") ? jsonObject.get("violation_description").toString() : KEY_UNAVAILABLE;
 
 
-                    Citation citation = new Citation(criticalFlag, inspectionDType, inspectionDate, score, violationCode, violationDescription);
+                    Citation citation = new Citation(criticalFlag, inspectionDType, inspectionDate, grade, violationCode, violationDescription);
                     citationArrayList.add(citation);
                 }
 

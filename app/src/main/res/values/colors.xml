@@ -8,4 +8,9 @@
     <color name="active_cell">@android:color/darker_gray</color>
     <color name="inactive_cell">@android:color/white</color>
 
+
+    <color name="pin_none">#869cac</color>
+    <color name="pin_medium">#fca83e</color>
+    <color name="pin_serious">#ec4e4d</color>
+
 </resources>

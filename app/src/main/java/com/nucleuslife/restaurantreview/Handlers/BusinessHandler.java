@@ -3,7 +3,6 @@ package com.nucleuslife.restaurantreview.Handlers;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -11,6 +10,7 @@ import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.fragments.BusinessListDialogFragment;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
+import com.nucleuslife.restaurantreview.utils.BusinessUtil;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
@@ -85,6 +85,7 @@ public class BusinessHandler
         @Override
         public Double latitude()
         {
+            Log.i("latsam", "info : " + context.getGoogleMapsHandler().getMap().getCameraPosition().target);
             return context.getGoogleMapsHandler().getMap().getCameraPosition().target.latitude;
         }
 
@@ -157,15 +158,16 @@ public class BusinessHandler
         String formattedCitationCount = String.format(context.getString(R.string.restaurant_citation_count), citationCount);
 
 
-        boolean hasCitations = business.getCitations().size() > 0;
-        float markerColor = hasCitations ? BitmapDescriptorFactory.HUE_RED : BitmapDescriptorFactory.HUE_BLUE;
+//        float markerColor = BusinessUtil.getBusinessMarkerColor(business);
+        float opacityAlpha = (business.getCitationLevel() == CustomBusiness.CitationLevel.NONE) ? .7f : 1f;
 
         LatLng latLng = new LatLng(latitude, longitude);
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(restaurantTitle)
                 .snippet(formattedCitationCount)
-                .icon(BitmapDescriptorFactory.defaultMarker(markerColor));
+                .alpha(opacityAlpha)
+                .icon(BusinessUtil.getBusinessMarkerColor(business, this.context));
 
         Marker marker = this.context.getGoogleMapsHandler().getMap().addMarker(markerOptions);
         marker.setTag(business);
@@ -192,9 +194,13 @@ public class BusinessHandler
     {
         Log.i("samsam", "showRestaurantList");
 
-//        BusinessListDialogFragment businessListDialog = new BusinessListDialogFragment();
         this.context.getLoadingDialog().dismiss();
         this.businessListDialogFragment.show(context.getFragmentManager(), "dialog");
+    }
+
+    public BusinessListDialogFragment getBusinessListDialogFragment()
+    {
+        return businessListDialogFragment;
     }
 
     public ArrayList<CustomBusiness> getBusinessArrayList()

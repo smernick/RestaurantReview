@@ -70,6 +70,13 @@ public class BusinessListDialogFragment extends DialogFragment implements Busine
     }
 
     @Override
+    public void onPause()
+    {
+        this.dismiss();
+        super.onPause();
+    }
+
+    @Override
     public void onBusinessSelected(View view)
     {
         this.dismiss();

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="citation_grade_values">
+        <item>Not Yet Graded</item>
+        <item>Grade A</item>
+        <item>Grade B</item>
+        <item>Grade C</item>
+        <item>Grade Pending</item>
+        <item>Grade Pending issued on re-opening following an initial inspection that resulted in a closure</item>
+    </string-array>
+</resources>
