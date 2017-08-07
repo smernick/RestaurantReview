@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@android:color/white"
-              android:clickable="true">
-
+              android:clickable="true"
+    >
 
     <com.nucleuslife.restaurantreview.views.TopViewClass
         android:id="@+id/top_class_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/business_adapter"
-        android:layout_below="@+id/top_class_view"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/business_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:scrollbars="vertical">
+        />
 
-    </android.support.v7.widget.RecyclerView>
-
-
-</RelativeLayout>
+</LinearLayout>

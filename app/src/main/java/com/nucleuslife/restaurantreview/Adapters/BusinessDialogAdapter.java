@@ -14,7 +14,7 @@ import com.nucleuslife.restaurantreview.views.TouchListener;
 
 import java.util.ArrayList;
 
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.BusinessViewHolder> implements  View.OnClickListener {
+public class BusinessDialogAdapter extends RecyclerView.Adapter<BusinessDialogAdapter.BusinessViewHolder> implements  View.OnClickListener {
 
     private ArrayList<CustomBusiness> businessList;
     private MainActivity context;
@@ -29,14 +29,14 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.Busine
 
         private BusinessViewHolder(View view) {
             super(view);
-            view.setOnClickListener(BusinessAdapter.this);
+            view.setOnClickListener(BusinessDialogAdapter.this);
             view.setOnTouchListener(new TouchListener(new CellTouchListener()));
             this.nameTextView = (TextView) view.findViewById(R.id.restaurant_name);
             this.citationCount = (TextView) view.findViewById(R.id.citation_count);
         }
     }
 
-    public BusinessAdapter(MainActivity context, ArrayList<CustomBusiness> businessList, BusinessSelectedListener businessSelectedListener) {
+    public BusinessDialogAdapter(MainActivity context, ArrayList<CustomBusiness> businessList, BusinessSelectedListener businessSelectedListener) {
         this.businessList = businessList;
         this.context = context;
         this.businessSelectedListener = businessSelectedListener;

@@ -2,25 +2,25 @@ package com.nucleuslife.restaurantreview.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.nucleuslife.restaurantreview.Adapters.CitationAdapter;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
+import com.nucleuslife.restaurantreview.views.DividerItemDecoration;
+import com.nucleuslife.restaurantreview.views.TopViewClass;
 
 import static com.nucleuslife.restaurantreview.Constants.BUSINESS_KEY;
 
 public class CitationListFragment extends AbstractCustomFragment implements View.OnClickListener
 {
     private RecyclerView recyclerView;
-
-    private TextView businessTitleTextView;
+    private TopViewClass topViewClass;
 
     @Nullable
     @Override
@@ -28,10 +28,9 @@ public class CitationListFragment extends AbstractCustomFragment implements View
     {
         View view = inflater.inflate(R.layout.citation_list_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_adapter);
-        this.businessTitleTextView = (TextView) view.findViewById(R.id.business_title_text_view);
+        this.topViewClass = (TopViewClass) view.findViewById(R.id.top_class_view);
+        this.recyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(), R.dimen.business_list_fragment_padding_side));
 
-        Button button = (Button) view.findViewById(R.id.back_button);
-        button.setOnClickListener(this);
 
         this.init();
 
@@ -40,9 +39,11 @@ public class CitationListFragment extends AbstractCustomFragment implements View
 
     private void init()
     {
-        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(BUSINESS_KEY);
+        this.topViewClass.setLeftImageView(ContextCompat.getDrawable(this.getActivity(), R.drawable.back_button));
+        this.topViewClass.getLeftImageView().setOnClickListener(this);
 
-        this.businessTitleTextView.setText(customBusiness.getBusinessInfo().name());
+        CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(BUSINESS_KEY);
+        this.topViewClass.setTitleText(customBusiness.getBusinessInfo().name());
 
         CitationAdapter citationAdapter = new CitationAdapter(this.getActivity(), customBusiness);
         this.recyclerView.setAdapter(citationAdapter);

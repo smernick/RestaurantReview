@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class CustomBusiness implements Serializable
 {
     private Business businessInfo;
-    private ArrayList<Citation> citations;
+    private ArrayList<Citation> citations = new ArrayList<>();
 
     public CustomBusiness(Business businessInfo)
     {
@@ -40,7 +40,7 @@ public class CustomBusiness implements Serializable
     public enum CitationLevel
     {
         SERIOUS,
-        MODETRATE,
+        MODERATE,
         NONE
     }
 }

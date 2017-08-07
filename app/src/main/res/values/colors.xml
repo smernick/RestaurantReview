@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="primary_app_color">#498dfb</color>
+    <color name="primary_app_color">#0092FF</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="active_cell">@android:color/darker_gray</color>
     <color name="inactive_cell">@android:color/white</color>
@@ -12,5 +12,16 @@
     <color name="pin_none">#869cac</color>
     <color name="pin_medium">#fca83e</color>
     <color name="pin_serious">#ec4e4d</color>
+
+    <color name="citation_additional_info_text">#7A91A3</color>
+
+    <color name="home_peer_card_button_shadow_gradient_start">#80000000</color>
+    <color name="home_peer_card_button_shadow_gradient_center">#80000000</color>
+    <color name="home_peer_card_button_shadow_gradient_end">#00000000</color>
+    <color name="home_peer_card_button_day">#F7FBFF</color>
+
+
+
+    7A91A3
 
 </resources>

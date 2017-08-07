@@ -30,7 +30,7 @@ public class CitationUtil
         int citationSize = business.getCitations().size();
 
         if (citationSize > 0) {
-            citationLevel = (citationSize > 9) ? CustomBusiness.CitationLevel.SERIOUS : CustomBusiness.CitationLevel.MODETRATE;
+            citationLevel = (citationSize > 9) ? CustomBusiness.CitationLevel.SERIOUS : CustomBusiness.CitationLevel.MODERATE;
         }
 
 

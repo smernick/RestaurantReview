@@ -29,9 +29,7 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
     public void onBindViewHolder(CitationViewHolder holder, int position)
     {
         Citation citation = this.citations.get(position);
-
         this.setCards(holder, citation, position);
-
     }
 
     @Override
@@ -69,15 +67,11 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
 
         String formattedDate = citation.getInspectionDate().split("T")[0];
 
-        String citationTypeFormatted = String.format(context.getString(R.string.citation_type_formatted), formattedDate);
-        String formattedDateInfo = String.format(context.getString(R.string.citation_date_formatted), formattedDate);
-        String citationCriticalFormatted = String.format(context.getString(R.string.citation_critical_formatted), citation.getCritical());
-        String citationCodeFormatted = String.format(context.getString(R.string.citation_code_formatted), citation.getViolationCode());
-
-        holder.citationType.setText(citationTypeFormatted);
-        holder.citationCritical.setText(citationCriticalFormatted);
-        holder.citationDate.setText(formattedDateInfo);
-        holder.citationCode.setText(citationCodeFormatted);
+        holder.citationType.setText(citation.getInspectionType());
+//        holder.citationType.setTextColor(ContextCompat.getColor(this.context, BusinessUtil.getCitationColor(business)));
+        holder.citationCritical.setText(citation.getCritical());
+        holder.citationDate.setText(formattedDate);
+        holder.citationCode.setText(citation.getViolationCode());
         holder.citationDescription.setText(citation.getCitationDescription());
     }
 

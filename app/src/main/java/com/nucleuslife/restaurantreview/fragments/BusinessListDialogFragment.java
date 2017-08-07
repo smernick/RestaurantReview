@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.nucleuslife.restaurantreview.Adapters.BusinessAdapter;
+import com.nucleuslife.restaurantreview.Adapters.BusinessDialogAdapter;
 import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 
 
-public class BusinessListDialogFragment extends DialogFragment implements BusinessAdapter.BusinessSelectedListener
+public class BusinessListDialogFragment extends DialogFragment implements BusinessDialogAdapter.BusinessSelectedListener
 {
     private RecyclerView recyclerView;
     private MainActivity activityContext;
@@ -50,7 +50,7 @@ public class BusinessListDialogFragment extends DialogFragment implements Busine
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.business_list_layout, container, false);
+        View view = inflater.inflate(R.layout.business_list_fragment_layout, container, false);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.business_list_recycler_view);
 
         this.init();
@@ -61,8 +61,8 @@ public class BusinessListDialogFragment extends DialogFragment implements Busine
     private void init()
     {
         this.activityContext = (MainActivity) this.getActivity();
-        BusinessAdapter businessAdapter = new BusinessAdapter(this.activityContext, this.activityContext.getBusinessHandler().getBusinessArrayList(), this);
-        this.recyclerView.setAdapter(businessAdapter);
+        BusinessDialogAdapter businessDialogAdapter = new BusinessDialogAdapter(this.activityContext, this.activityContext.getBusinessHandler().getBusinessArrayList(), this);
+        this.recyclerView.setAdapter(businessDialogAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(this.getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);

@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.nucleuslife.restaurantreview.MainActivity;
 import com.nucleuslife.restaurantreview.R;
 import com.nucleuslife.restaurantreview.fragments.BusinessListDialogFragment;
+import com.nucleuslife.restaurantreview.fragments.BusinessListFragment;
 import com.nucleuslife.restaurantreview.structures.CustomBusiness;
 import com.nucleuslife.restaurantreview.utils.BusinessUtil;
 import com.yelp.clientlib.connection.YelpAPI;
@@ -130,6 +131,9 @@ public class BusinessHandler
 
     private void parseRestaurantData(SearchResponse searchResponse)
     {
+        LatLng current = this.context.getGoogleMapsHandler().getMap().getCameraPosition().target;
+        this.context.getGoogleMapsHandler().getMap().animateCamera(CameraUpdateFactory.newLatLngZoom(current, DEFAULT_ZOOM));
+
         this.yelpBusinessResponseSize = searchResponse.businesses().size();
         this.businessArrayList.clear();
         this.clearMarkers();
@@ -137,14 +141,13 @@ public class BusinessHandler
         Log.i("searchsam", "size " + searchResponse.businesses().size());
 
         for (int i = 0; i < searchResponse.businesses().size() ; i++ )  {
+            Log.i("searchsam", "size " + searchResponse.businesses().size());
             Business business = searchResponse.businesses().get(i);
             CustomBusiness customBusiness = new CustomBusiness(business);
             this.context.getCitationHandler().getCitations(customBusiness);
             this.businessArrayList.add(customBusiness);
         }
 
-        LatLng current = this.context.getGoogleMapsHandler().getMap().getCameraPosition().target;
-        this.context.getGoogleMapsHandler().getMap().animateCamera(CameraUpdateFactory.newLatLngZoom(current, DEFAULT_ZOOM));
 
     }
 
@@ -167,16 +170,17 @@ public class BusinessHandler
                 .title(restaurantTitle)
                 .snippet(formattedCitationCount)
                 .alpha(opacityAlpha)
-                .icon(BusinessUtil.getBusinessMarkerColor(business, this.context));
+                .icon(BusinessUtil.getBusinessColor(business, this.context));
 
         Marker marker = this.context.getGoogleMapsHandler().getMap().addMarker(markerOptions);
         marker.setTag(business);
         this.markerArrayList.add(marker);
 
         Log.i("samsam", "markerSize " + this.markerArrayList.size()  + ", businessSize " + this.businessArrayList.size());
+
         if (this.markerArrayList.size() == this.businessArrayList.size()) {
             Log.i("samsam", "showRestaurantList");
-            this.showRestaurantList();
+            this.context.getLoadingDialog().dismiss();
         }
     }
 
@@ -194,8 +198,9 @@ public class BusinessHandler
     {
         Log.i("samsam", "showRestaurantList");
 
-        this.context.getLoadingDialog().dismiss();
-        this.businessListDialogFragment.show(context.getFragmentManager(), "dialog");
+//        this.context.getLoadingDialog().dismiss();
+//        this.businessListDialogFragment.show(context.getFragmentManager(), "dialog");
+        this.context.showFragment(new BusinessListFragment());
     }
 
     public BusinessListDialogFragment getBusinessListDialogFragment()
@@ -207,6 +212,5 @@ public class BusinessHandler
     {
         return businessArrayList;
     }
-
 
 }

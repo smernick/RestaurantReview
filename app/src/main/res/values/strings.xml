@@ -3,6 +3,8 @@
     <string name="title_activity_restaurant">Restaurants</string>
     <string name="restaurant_list_formatted_name">%1$s: %2$s</string>
     <string name="restaurant_citation_count">Citations: %d</string>
+    <string name="business_list_adapter_citation_count">%d citations</string>
+    <string name="business_list_adapter_distance">%.2f miles</string>
 
     <string name="citation_date_formatted">Date: %s</string>
     <string name="citation_type_formatted">Citation Type: %s</string>

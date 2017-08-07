@@ -29,16 +29,16 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     private CitationButton showListButton;
     private CitationButton searchUniqueBusinessButton;
 
-
-
     private Runnable startAppHandler = new Runnable()
     {
         @Override
         public void run()
         {
+//            Todo check if fragment exits
             MainActivity.this.businessHandler.searchRestaurants();
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
         this.citationHandler = new CitationHandler(this);
         this.suggestBusinessButton = (CitationButton) findViewById(R.id.around_me_button);
         this.showListButton = (CitationButton) findViewById(R.id.show_list_button);
-        this.searchUniqueBusinessButton = (CitationButton) findViewById(R.id.search_for_business);
+//        this.searchUniqueBusinessButton = (CitationButton) findViewById(R.id.search_for_business);
 
         this.loadingDialog = new LoadingDialog();
 
@@ -80,12 +80,14 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
         if (MainActivity.isActivityVisible) {
             FragmentTransaction transaction = this.getFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right, R.animator.enter_from_right, R.animator.exit_to_left);
+//            transaction.setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right);
+
             transaction.replace(R.id.fragment_layout, fragment);
             transaction.addToBackStack(fragment.getClass().getSimpleName());
             transaction.commit();
         }
-
     }
+
 
     @Override
 
@@ -102,9 +104,10 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
             this.businessHandler.searchRestaurants();
         } else if (view.equals(this.showListButton)) {
             this.businessHandler.showRestaurantList();
-        } else if (view.equals(this.searchUniqueBusinessButton)) {
-
         }
+//        } else if (view.equals(this.searchUniqueBusinessButton)) {
+//
+//        }
 
     }
 

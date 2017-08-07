@@ -24,6 +24,7 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
     private OkHttpClient client = new OkHttpClient();
     private CitationCallback citationCallback;
     private CustomBusiness customBusiness;
+    public static int responseCounter = 0;
 
     public OkHttpHandler(CitationCallback citationCallback, CustomBusiness customBusiness)
     {
@@ -98,6 +99,8 @@ public class OkHttpHandler extends AsyncTask<String, String, String>
             this.citationCallback.onCitationSuccess(this.customBusiness);
         }
 
+
+        responseCounter += 1;
     }
 
     public interface CitationCallback

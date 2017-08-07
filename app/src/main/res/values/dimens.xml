@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="divider_size">1dp</dimen>
+    <dimen name="business_list_fragment_padding_side">20dp</dimen>
+    <dimen name="peer_audio_call_button_padding">5dp</dimen>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="50%"
+                android:startColor="@color/home_peer_card_button_shadow_gradient_start"
+                android:centerColor="@color/home_peer_card_button_shadow_gradient_center"
+                android:endColor="@color/home_peer_card_button_shadow_gradient_end"/>
+        </shape>
+    </item>
+
+    <item
+        android:left="@dimen/peer_audio_call_button_padding"
+        android:right="@dimen/peer_audio_call_button_padding"
+        android:top="@dimen/peer_audio_call_button_padding"
+        android:bottom="@dimen/peer_audio_call_button_padding">
+        <shape android:shape="oval">
+            <solid android:color="@color/home_peer_card_button_day"/>
+        </shape>
+    </item>
+
+
+    <item
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp"
+        android:bottom="10dp"
+        android:drawable="@drawable/ic_list_black_24dp">
+
+    </item>
+
+
+</layer-list>
