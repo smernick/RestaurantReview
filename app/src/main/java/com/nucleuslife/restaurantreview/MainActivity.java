@@ -12,6 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.nucleuslife.restaurantreview.Handlers.BusinessHandler;
 import com.nucleuslife.restaurantreview.Handlers.CitationHandler;
 import com.nucleuslife.restaurantreview.Handlers.GoogleMapsHandler;
+import com.nucleuslife.restaurantreview.Handlers.AutoCompleteHandler;
 import com.nucleuslife.restaurantreview.fragments.LoadingDialog;
 import com.nucleuslife.restaurantreview.views.CitationButton;
 
@@ -24,6 +25,7 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
 
     private GoogleMapsHandler googleMapsHandler;
     private BusinessHandler businessHandler;
+    private AutoCompleteHandler autoCompleteHandler;
     private CitationHandler citationHandler;
     private CitationButton suggestBusinessButton;
     private CitationButton showListButton;
@@ -35,7 +37,7 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
         public void run()
         {
 //            Todo check if fragment exits
-            MainActivity.this.businessHandler.searchRestaurants();
+//            MainActivity.this.businessHandler.searchRestaurants();
         }
     };
 
@@ -59,6 +61,7 @@ public class MainActivity extends FragmentActivity implements  View.OnClickListe
     {
         this.businessHandler = new BusinessHandler(this);
         this.citationHandler = new CitationHandler(this);
+        this.autoCompleteHandler = new AutoCompleteHandler(this);
         this.suggestBusinessButton = (CitationButton) findViewById(R.id.around_me_button);
         this.showListButton = (CitationButton) findViewById(R.id.show_list_button);
 //        this.searchUniqueBusinessButton = (CitationButton) findViewById(R.id.search_for_business);

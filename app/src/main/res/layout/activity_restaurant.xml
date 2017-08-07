@@ -21,22 +21,18 @@
         android:layout_marginBottom="20dp">
 
 
-        <!--<com.nucleuslife.restaurantreview.views.CitationButton-->
-            <!--android:id="@+id/search_for_business"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/search_for_restaurant"-->
-            <!--android:textColor="@android:color/white"-->
-            <!--android:background="@drawable/custom_button"-->
-            <!--android:layout_marginEnd="20dp"-->
-            <!--/>-->
+        <com.nucleuslife.restaurantreview.views.CitationButton
+            android:id="@+id/search_for_business"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/map_button_option"/>
 
         <com.nucleuslife.restaurantreview.views.CitationButton
             android:id="@+id/around_me_button"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="@mipmap/ic_launcher"
-            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/search_for_business"
             />
 
         <com.nucleuslife.restaurantreview.views.CitationButton
@@ -46,6 +42,19 @@
             android:layout_below="@+id/around_me_button"
             android:background="@drawable/map_button_option"/>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        >
+        <fragment
+            android:id="@+id/place_autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            />
     </RelativeLayout>
 
     <FrameLayout

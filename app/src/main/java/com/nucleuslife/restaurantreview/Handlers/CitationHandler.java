@@ -26,23 +26,23 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
         this.context = context;
     }
 
-    public void getCitations(CustomBusiness business)
+    public void getCitations(CustomBusiness business, String phoneNumber)
     {
-        if (business.getBusinessInfo().phone() != null) {
-            String phoneString = business.getBusinessInfo().phone();
+        if (phoneNumber != null) {
 
                 String uri = Uri.parse("https://data.cityofnewyork.us/resource/9w7m-hzhe.json?")
                     .buildUpon()
-                    .appendQueryParameter("phone", phoneString)
+                    .appendQueryParameter("phone", phoneNumber)
                     .build().toString();
 
             OkHttpHandler okHttpHandler = new OkHttpHandler(this, business);
             okHttpHandler.execute(uri);
 
-//            Log.i("citationsam", "size: " + customBusiness.getCitations().size());
 //            this.showCitationListFragment(customBusiness);
         }
     }
+
+
 
     public void showCitationListFragment(CustomBusiness customBusiness)
     {
@@ -58,7 +58,13 @@ public class CitationHandler implements OkHttpHandler.CitationCallback, Callback
     public void onCitationSuccess(CustomBusiness customBusiness)
     {
         Log.i("citationsam", "size: " + customBusiness.getCitations().size());
-        this.context.getBusinessHandler().addMarkers(customBusiness);
+
+        if (customBusiness.getBusinessInfo() != null) {
+            this.context.getBusinessHandler().addMapsLocationMarker(customBusiness);
+        } else if (customBusiness.getPlaceInfo() != null) {
+            this.showCitationListFragment(customBusiness);
+        }
+
     }
 
     @Override

@@ -144,14 +144,14 @@ public class BusinessHandler
             Log.i("searchsam", "size " + searchResponse.businesses().size());
             Business business = searchResponse.businesses().get(i);
             CustomBusiness customBusiness = new CustomBusiness(business);
-            this.context.getCitationHandler().getCitations(customBusiness);
+            this.context.getCitationHandler().getCitations(customBusiness, customBusiness.getBusinessInfo().phone());
             this.businessArrayList.add(customBusiness);
         }
 
 
     }
 
-    public void addMarkers(CustomBusiness business)
+    public void addMapsLocationMarker(CustomBusiness business)
     {
         Double latitude = business.getBusinessInfo().location().coordinate().latitude();
         Double longitude = business.getBusinessInfo().location().coordinate().longitude();
@@ -159,7 +159,6 @@ public class BusinessHandler
 
         int citationCount =  (business.getCitations() != null) ? business.getCitations().size() : 0;
         String formattedCitationCount = String.format(context.getString(R.string.restaurant_citation_count), citationCount);
-
 
 //        float markerColor = BusinessUtil.getBusinessMarkerColor(business);
         float opacityAlpha = (business.getCitationLevel() == CustomBusiness.CitationLevel.NONE) ? .7f : 1f;
@@ -183,6 +182,41 @@ public class BusinessHandler
             this.context.getLoadingDialog().dismiss();
         }
     }
+
+
+//    public void addMapsLocationMarker(CustomBusiness business)
+//    {
+//        Double latitude = business.getBusinessInfo().location().coordinate().latitude();
+//        Double longitude = business.getBusinessInfo().location().coordinate().longitude();
+//        String restaurantTitle = business.getBusinessInfo().name();
+//
+//        int citationCount =  (business.getCitations() != null) ? business.getCitations().size() : 0;
+//        String formattedCitationCount = String.format(context.getString(R.string.restaurant_citation_count), citationCount);
+//
+//
+////        float markerColor = BusinessUtil.getBusinessMarkerColor(business);
+//        float opacityAlpha = (business.getCitationLevel() == CustomBusiness.CitationLevel.NONE) ? .7f : 1f;
+//
+//        LatLng latLng = new LatLng(latitude, longitude);
+//        MarkerOptions markerOptions = new MarkerOptions()
+//                .position(latLng)
+//                .title(restaurantTitle)
+//                .snippet(formattedCitationCount)
+//                .alpha(opacityAlpha)
+//                .icon(BusinessUtil.getBusinessColor(business, this.context));
+//
+//        Marker marker = this.context.getGoogleMapsHandler().getMap().addMarker(markerOptions);
+//        marker.setTag(business);
+//        this.markerArrayList.add(marker);
+//
+//        Log.i("samsam", "markerSize " + this.markerArrayList.size()  + ", businessSize " + this.businessArrayList.size());
+//
+//        if (this.markerArrayList.size() == this.businessArrayList.size()) {
+//            Log.i("samsam", "showRestaurantList");
+//            this.context.getLoadingDialog().dismiss();
+//        }
+//    }
+
 
     private void clearMarkers()
     {

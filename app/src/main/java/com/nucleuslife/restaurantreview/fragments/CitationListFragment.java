@@ -43,7 +43,7 @@ public class CitationListFragment extends AbstractCustomFragment implements View
         this.topViewClass.getLeftImageView().setOnClickListener(this);
 
         CustomBusiness customBusiness = (CustomBusiness) getArguments().getSerializable(BUSINESS_KEY);
-        this.topViewClass.setTitleText(customBusiness.getBusinessInfo().name());
+        this.topViewClass.setTitleText(customBusiness.getBusinessName());
 
         CitationAdapter citationAdapter = new CitationAdapter(this.getActivity(), customBusiness);
         this.recyclerView.setAdapter(citationAdapter);

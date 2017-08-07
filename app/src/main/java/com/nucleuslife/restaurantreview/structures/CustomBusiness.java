@@ -1,5 +1,6 @@
 package com.nucleuslife.restaurantreview.structures;
 
+import com.google.android.gms.location.places.Place;
 import com.nucleuslife.restaurantreview.utils.CitationUtil;
 import com.yelp.clientlib.entities.Business;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 public class CustomBusiness implements Serializable
 {
     private Business businessInfo;
+    private Place placeInfo;
+
     private ArrayList<Citation> citations = new ArrayList<>();
 
     public CustomBusiness(Business businessInfo)
@@ -16,9 +19,19 @@ public class CustomBusiness implements Serializable
         this.businessInfo = businessInfo;
     }
 
+    public CustomBusiness(Place placeInfo)
+    {
+        this.placeInfo = placeInfo;
+    }
+
     public Business getBusinessInfo()
     {
         return businessInfo;
+    }
+
+    public String getBusinessName()
+    {
+        return this.getBusinessInfo() != null ? this.getBusinessInfo().name() : this.getPlaceInfo().getName().toString();
     }
 
     public ArrayList<Citation> getCitations()
@@ -36,6 +49,10 @@ public class CustomBusiness implements Serializable
         return CitationUtil.getCitationLevel(this);
     }
 
+    public Place getPlaceInfo()
+    {
+        return placeInfo;
+    }
 
     public enum CitationLevel
     {

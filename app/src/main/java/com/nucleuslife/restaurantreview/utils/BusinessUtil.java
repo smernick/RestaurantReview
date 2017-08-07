@@ -69,4 +69,15 @@ public class BusinessUtil
     }
 
 
+    public static String formatGoogleSeggestionsPhoneNumber(CharSequence phoneNumber)
+    {
+        String formattedString = phoneNumber.toString().replaceAll("[^\\d]", "");
+
+        if (formattedString.length() > 10 ) {
+            formattedString = formattedString.startsWith("1") ? formattedString.substring(1) : formattedString;
+        }
+
+        return formattedString;
+    }
+
 }
